@@ -12,11 +12,11 @@ export class DiagnosticoService {
     ) {}
 
     async findAll() {
-        return await this.diagnosticoRepository.find({relations: ['paciente']});
+        return await this.diagnosticoRepository.find({relations: ['pacientes']});
     }
 
     async findOne(id: string): Promise<DiagnosticoEntity> {
-        const diagnostico: DiagnosticoEntity = await this.diagnosticoRepository.findOne({where: {diagnosticoId: id}, relations: ['paciente']});
+        const diagnostico: DiagnosticoEntity = await this.diagnosticoRepository.findOne({where: {diagnosticoId: id}, relations: ['pacientes']});
         if (!diagnostico) {
             throw new Error("The diagnostic with the given id was not found");
         }
@@ -31,7 +31,7 @@ export class DiagnosticoService {
     }
 
     async delete(id: string) {
-        const diagnostico: DiagnosticoEntity = await this.diagnosticoRepository.findOne({where: {diagnosticoId: id}});
+        const diagnostico: DiagnosticoEntity = await this.diagnosticoRepository.findOne({where: {diagnosticoId: id}, relations: ['pacientes']});
         if (!diagnostico) {
             throw new BusinessLogicException("The diagnostic with the given id was not found", BusinessError.NOT_FOUND);
         }

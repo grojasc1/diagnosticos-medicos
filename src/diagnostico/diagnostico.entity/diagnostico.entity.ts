@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { PacienteEntity } from "../../paciente/paciente.entity/paciente.entity";
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class DiagnosticoEntity {
@@ -10,4 +11,7 @@ export class DiagnosticoEntity {
 
     @Column()
     descripcion: string;
+
+    @ManyToMany(() => PacienteEntity, paciente => paciente.diagnosticos)
+    pacientes: PacienteEntity[];
 }

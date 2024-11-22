@@ -8,6 +8,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MedicoEntity } from './medico/medico.entity/medico.entity';
 import { PacienteEntity } from './paciente/paciente.entity/paciente.entity';
 import { DiagnosticoEntity } from './diagnostico/diagnostico.entity/diagnostico.entity';
+import { PacienteMedicoModule } from './paciente-medico/paciente-medico.module';
 
 @Module({
   imports: [MedicoModule, PacienteModule, DiagnosticoModule,
@@ -23,6 +24,7 @@ import { DiagnosticoEntity } from './diagnostico/diagnostico.entity/diagnostico.
       synchronize: true,
       keepConnectionAlive: true
     }),
+    PacienteMedicoModule,
   ],
   controllers: [AppController],
   providers: [AppService],

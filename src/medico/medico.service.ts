@@ -24,15 +24,15 @@ export class MedicoService {
     }
 
     async create(medico: MedicoEntity): Promise<MedicoEntity> {
-        if (medico.nombre === undefined || medico.especialidad === undefined) {
-            throw new BusinessLogicException("The name and the especialidad of the medic are required", BusinessError.BAD_REQUEST);
+        if (medico.nombre.length === 0 || medico.especialidad.length === 0) {
+            throw new BusinessLogicException("The nombre and the especialidad of the medico are required", BusinessError.BAD_REQUEST);
         }
         return await this.medicoRepository.save(medico);
     }
 
 
     async delete(id: string) {
-        const medico: MedicoEntity = await this.medicoRepository.findOne({where: {medicoId: id}});
+        const medico: MedicoEntity = await this.medicoRepository.findOne({where: {medicoId: id}, relations: ['pacientes']});
         if (!medico) {
             throw new BusinessLogicException("The medic with the given id was not found", BusinessError.NOT_FOUND);
         }

@@ -31,16 +31,6 @@ export class PacienteService {
         return await this.pacienteRepository.save(paciente);
     }
 
-    async update(id: string, paciente: PacienteEntity): Promise<PacienteEntity> {
-        const persistedPaciente: PacienteEntity = await this.pacienteRepository.findOne({where: {pacienteId: id}});
-        if (!persistedPaciente) {
-            throw new BusinessLogicException("The patient with the given id was not found", BusinessError.NOT_FOUND);
-        }
-
-        paciente.pacienteId = id;
-
-        return await this.pacienteRepository.save({...persistedPaciente, ...paciente});
-    }
 
     async delete(id: string) {
         const paciente: PacienteEntity = await this.pacienteRepository.findOne({where: {pacienteId: id}});

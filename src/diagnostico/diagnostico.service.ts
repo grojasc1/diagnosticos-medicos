@@ -18,7 +18,7 @@ export class DiagnosticoService {
     async findOne(id: string): Promise<DiagnosticoEntity> {
         const diagnostico: DiagnosticoEntity = await this.diagnosticoRepository.findOne({where: {diagnosticoId: id}, relations: ['pacientes']});
         if (!diagnostico) {
-            throw new Error("The diagnostic with the given id was not found");
+            throw new BusinessLogicException("The diagnostic with the given id was not found", BusinessError.NOT_FOUND);
         }
         return diagnostico;
     }
